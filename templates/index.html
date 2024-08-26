@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick File Uploader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4C+s9X8KC4IBcNnScqlgslW4eqHZhe+5dOfxKb/d5Fsm57Dmd8yJ60uRmURZ4pRz55kw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .btn {
+            border: 2px solid #4CAF50;
+            color: white;
+            background-color: #4CAF50;
+            padding: 8px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .instructions {
+            margin-top: 20px;
+            text-align: left;
+            color: #666;
+        }
+        .submit-btn {
+            margin-top: 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .file-name {
+            margin-top: 10px;
+            color: #333;
+        }
+        .flash-message {
+            margin-top: 20px;
+            color: #d44;
+            font-size: 16px;
+        }
+        .flash-message.success {
+            color: #4CAF50;
+        }
+        .submit-btn[disabled] {
+            background-color: #d4d4d4;
+            cursor: not-allowed;
+        }
+        .history-btn {
+            margin-top: 20px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .history-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-upload"></i> Quick File Uploader</h1>
+        <p>To upload a file, select a file and click "Upload".</p>
+        <form method="post" enctype="multipart/form-data" action="/upload">
+            <div class="upload-btn-wrapper">
+                <button class="btn">Choose file</button>
+                <input type="file" name="file" id="fileInput" required>
+            </div>
+            <br>
+            <button type="submit" class="submit-btn" id="uploadBtn" disabled>Upload</button>
+            <div class="file-name" id="fileName">No file selected</div>
+        </form>
+        <div class="instructions">
+            <h3>Quick Command:</h3>
+            <p>POST: <code>http://AlphaspearServer.local:8083/upload</code></p>
+            <p>In the body, select form-data, use <code>file</code> as the key, and select your file as the value. Ensure you select 'file' from the dropdown menu.</p>
+        </div>
+        <a href="/history/ui" class="history-btn">View History</a>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+            <div class="flash-message">
+              {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+    </div>
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const fileName = document.getElementById('fileName');
+
+        fileInput.addEventListener('change', function() {
+            const selectedFile = this.files.length > 0 ? this.files[0].name : 'No file selected';
+            fileName.textContent = selectedFile;
+            uploadBtn.disabled = this.files.length === 0;
+        });
+    </script>
+</body>
+</html>
