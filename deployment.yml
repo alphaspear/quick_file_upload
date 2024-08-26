@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quick_file_upload-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: quick_file_upload
+  template:
+    metadata:
+      labels:
+        app: quick_file_upload
+    spec:
+      containers:
+      - name: quick_file_upload
+        image: quick_file_upload:latest
+        ports:
+        - containerPort: 8083
+        volumeMounts:
+        - mountPath: /app/upload
+          name: upload-volume
+      volumes:
+      - name: upload-volume
+        hostPath:
+          path: /home/iabhilashjoshi/uploaded_files
+          type: Directory
