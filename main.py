@@ -8,7 +8,7 @@ import socket
 app = Flask(__name__)
 
 
-UPLOAD_FOLDER = '/home/iabhilashjoshi/quick_upld_dir'
+UPLOAD_FOLDER = 'upload/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 DB_HOST = "192.168.29.11"
@@ -105,5 +105,7 @@ def history_cli():
 
 if __name__ == '__main__':
     # Create the uploads folder if it doesn't exist
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    if not os.path.exist(UPLOAD_FOLDER):
+        print("creating dir")
+        os.makedirs(UPLOAD_FOLDER)
     app.run(host='0.0.0.0', port=8083, debug=True)
