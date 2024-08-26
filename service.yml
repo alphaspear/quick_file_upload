@@ -4,7 +4,7 @@ metadata:
   name: quick_file_upload
 spec:
   selector:
-    app: my-quick_file_upload
+    app: quick_file_upload
   ports:
     - protocol: TCP
       port: 8083

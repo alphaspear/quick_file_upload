@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quick_file_upload-deployment
+  name: quick_file_upload
 spec:
   replicas: 2
   selector:
