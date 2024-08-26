@@ -1,0 +1,8 @@
+version: '3'
+services:
+  quick_file_upload:
+    image: quick_file_upload:latest
+    ports:
+      - "8083:8083"
+    volumes:
+      - /home/iabhilashjoshi/uploaded_files:/app/upload
