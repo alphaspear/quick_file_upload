@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quick_file_upload
+  name: quick-file-upload  # Changed from 'quick_file_upload' to 'quick-file-upload'
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: quick_file_upload
+      app: quick-file-upload  # Changed from 'quick_file_upload' to 'quick-file-upload'
   template:
     metadata:
       labels:
-        app: quick_file_upload
+        app: quick-file-upload  # Changed from 'quick_file_upload' to 'quick-file-upload'
     spec:
       containers:
-      - name: quick_file_upload
+      - name: quick-file-upload-container  # Changed from 'quick_file_upload' to 'quick-file-upload-container'
         image: quick_file_upload:latest
         ports:
         - containerPort: 8083
