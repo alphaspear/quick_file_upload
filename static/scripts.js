@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const percentComplete = (e.loaded / e.total) * 100;
                 progressWrapper.style.display = 'block';
                 progressBar.value = percentComplete;
-                progressText.textContent = `${Math.round(percentComplete)}%`;
+                progressText.textContent = `${percentComplete.toFixed(1)}%`;
             }
         });
 
