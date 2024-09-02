@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const status = document.getElementById('status');
 
     chooseFileBtn.addEventListener('click', function() {
+        progressWrapper.style.display = 'none';
+        status.textContent = '';
         fileInput.click();
     });
 
@@ -22,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault();
         const formData = new FormData(form);
+        const selectedFileName = fileName.textContent;
         
         // Disable buttons
         uploadBtn.disabled = true;
@@ -41,19 +44,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         xhr.addEventListener('load', function() {
             if (xhr.status === 200) {
-                status.textContent = 'Upload successful!';
+                status.textContent = `${selectedFileName} uploaded successfully!`;
                 status.classList.add('success');
             } else {
-                status.textContent = 'Upload failed.';
+                status.textContent = `${selectedFileName} upload failed.`;
                 status.classList.add('error');
             }
             // Hide progress bar after a delay and reset
             status.classList.add('fade-out');
-                // Reset file input
-                fileInput.value = '';
-                fileName.textContent = '';
-                uploadBtn.disabled = true;
-                chooseFileBtn.disabled = false;
+            // Reset file input
+            fileInput.value = '';
+            fileName.textContent = '';
+            uploadBtn.disabled = true;
+            chooseFileBtn.disabled = false;
         });
 
         xhr.send(formData);
