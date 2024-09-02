@@ -105,7 +105,7 @@ def history_cli():
 
 if __name__ == '__main__':
     # Create the uploads folder if it doesn't exist
-    if not os.path.exist(UPLOAD_FOLDER):
+    if not os.path.exists(UPLOAD_FOLDER):
         print("creating dir")
         os.makedirs(UPLOAD_FOLDER)
     app.run(host='0.0.0.0', port=8083, debug=True)
